@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+      </profile>
+      <profile name="Annotation profile for homework1" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.24/lombok-1.18.24.jar" />
+        </processorPath>
+        <module name="jmp.cloud.service.impl" />
+        <module name="jmp.bank.api" />
+        <module name="jmp.dto" />
+        <module name="application" />
+        <module name="jmp.service.api" />
+        <module name="jmp.cloud.bank.impl" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="application" target="11" />
+      <module name="homework1" target="11" />
+      <module name="jmp.bank.api" target="11" />
+      <module name="jmp.cloud.bank.impl" target="11" />
+      <module name="jmp.cloud.service.impl" target="11" />
+      <module name="jmp.dto" target="11" />
+      <module name="jmp.service.api" target="11" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
