@@ -6,8 +6,10 @@ import jmp.workshop.dto.User;
 import jmp.workshop.service.Service;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 public class ServiceImpl implements Service {
 
@@ -32,5 +34,12 @@ public class ServiceImpl implements Service {
     @Override
     public List<User> getAllUsers() {
         return List.copyOf(subscriptions.keySet());
+    }
+
+    @Override
+    public double getAverageUsersAge() {
+        return getAllUsers().stream()
+                .map(User::getUserAge)
+                .collect(Collectors.averagingDouble(value -> (double) value));
     }
 }
