@@ -1,13 +1,11 @@
-import jmp.workshop.service.Service;
-
 module application {
 
-    requires jmp.cloud.bank.impl;
+    requires jmp.bank.api;
     requires jmp.dto;
     requires jmp.service.api;
-    requires jmp.cloud.service.impl;
 
     requires lombok;
 
-    uses Service;
+    uses jmp.workshop.service.Service;
+    uses jmp.workshop.api.Bank;
 }

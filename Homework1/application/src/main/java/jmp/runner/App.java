@@ -1,13 +1,11 @@
 package jmp.runner;
 
-import jmp.cloud.bank.impl.BankImpl;
 import jmp.workshop.api.Bank;
 import jmp.workshop.dto.BankCard;
 import jmp.workshop.dto.BankCardType;
 import jmp.workshop.dto.Subscription;
 import jmp.workshop.dto.User;
 import jmp.workshop.service.Service;
-import jmp.workshop.service.impl.ServiceImpl;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -20,13 +18,30 @@ public class App {
 
     public static void main(String[] args) {
         // Points 1-17
-        Bank bank = new BankImpl();
+        ServiceLoader<Service> loader = ServiceLoader.load(Service.class);
+        Optional<Service> serviceFromLoader = loader.findFirst();
+        if (serviceFromLoader.isEmpty()) {
+            System.out.printf("Unable to locate instance of %s%n", Service.class.getName());
+            return;
+        }
+        Service service = serviceFromLoader.get();
+        System.out.printf("Found instance of %s%n", Service.class.getName());
+
+        ServiceLoader<Bank> bankLoader = ServiceLoader.load(Bank.class);
+        Optional<Bank> bankFromLoader = bankLoader.findFirst();
+        if (bankFromLoader.isEmpty()) {
+            System.out.printf("Unable to locate instance of %s%n", Bank.class.getName());
+            return;
+        }
+        Bank bank = bankFromLoader.get();
+        System.out.printf("Found instance of %s%n", Bank.class.getName());
+
         User user = new User("John", "Doe", LocalDate.of(1990, 1,1));
         BankCard creditCard = bank.createBankCard(user, BankCardType.CREDIT);
         System.out.println("Credit card issued: " + creditCard);
         BankCard debitCard = bank.createBankCard(user, BankCardType.DEBIT);
         System.out.println("Debit card issued: " + debitCard);
-        Service service = new ServiceImpl();
+
         service.subscribe(creditCard);
         service.subscribe(debitCard, LocalDate.of(2020, 1,1));
         User user2 = new User("Alice", "Cooper", LocalDate.of(2010, 2,2));
@@ -66,17 +81,6 @@ public class App {
         System.out.printf("Subscription before %s are:%n", cutOffDate);
         System.out.println(subscriptions);
 
-        ServiceLoader<Service> loader = ServiceLoader.load(Service.class);
-        Optional<Service> serviceFromLoader = loader.findFirst();
-        if (serviceFromLoader.isEmpty()) {
-            System.out.printf("Unable to locate instance of %s%n", Service.class.getName());
-        } else {
-            Service service2 = serviceFromLoader.get();
-            System.out.println("Loaded service from ServiceLoader.");
-            service2.subscribe(creditCard);
-            service2.subscribe(debitCard);
-            System.out.println("Users from service2 are:");
-            System.out.println(service2.getAllUsers());
-        }
+
     }
 }
