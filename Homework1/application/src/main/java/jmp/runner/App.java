@@ -11,6 +11,9 @@ import jmp.workshop.service.impl.ServiceImpl;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
+import java.util.ServiceLoader;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class App {
@@ -25,13 +28,13 @@ public class App {
         System.out.println("Debit card issued: " + debitCard);
         Service service = new ServiceImpl();
         service.subscribe(creditCard);
-        service.subscribe(debitCard);
+        service.subscribe(debitCard, LocalDate.of(2020, 1,1));
         User user2 = new User("Alice", "Cooper", LocalDate.of(2010, 2,2));
         creditCard = bank.createBankCard(user2, BankCardType.CREDIT);
         System.out.println("Credit card issued: " + creditCard);
         debitCard = bank.createBankCard(user2, BankCardType.DEBIT);
         System.out.println("Debit card issued: " + debitCard);
-        service.subscribe(creditCard);
+        service.subscribe(creditCard, LocalDate.of(2018, 1,1));
         service.subscribe(debitCard);
         var subscription = service.getSubscriptionByBankCardNumber(creditCard.getNumber());
         System.out.println("Subscribed users:");
@@ -51,5 +54,29 @@ public class App {
                 .collect(Collectors.toUnmodifiableList());
         System.out.println("Payable users are:");
         System.out.println(payableUsers);
+        
+        // Points 21-25
+
+        // uncomment to check exception
+        // Optional<Subscription> unexistingSubscription = service.getSubscriptionByBankCardNumber("xxxx");
+
+        LocalDate cutOffDate = LocalDate.of(2021, 1, 1);
+        Predicate<Subscription> isSubscriptionBeforeDate = (s) -> s.getStartDate().isBefore(cutOffDate);
+        List<Subscription> subscriptions = service.getAllSubscriptionsByCondition(isSubscriptionBeforeDate);
+        System.out.printf("Subscription before %s are:%n", cutOffDate);
+        System.out.println(subscriptions);
+
+        ServiceLoader<Service> loader = ServiceLoader.load(Service.class);
+        Optional<Service> serviceFromLoader = loader.findFirst();
+        if (serviceFromLoader.isEmpty()) {
+            System.out.printf("Unable to locate instance of %s%n", Service.class.getName());
+        } else {
+            Service service2 = serviceFromLoader.get();
+            System.out.println("Loaded service from ServiceLoader.");
+            service2.subscribe(creditCard);
+            service2.subscribe(debitCard);
+            System.out.println("Users from service2 are:");
+            System.out.println(service2.getAllUsers());
+        }
     }
 }
