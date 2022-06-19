@@ -7,6 +7,9 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="task1" />
+        <module name="task2" />
+        <module name="task3" />
       </profile>
       <profile name="Annotation profile for homework1" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
@@ -23,14 +26,5 @@
         <module name="jmp.cloud.bank.impl" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="application" target="11" />
-      <module name="homework1" target="11" />
-      <module name="jmp.bank.api" target="11" />
-      <module name="jmp.cloud.bank.impl" target="11" />
-      <module name="jmp.cloud.service.impl" target="11" />
-      <module name="jmp.dto" target="11" />
-      <module name="jmp.service.api" target="11" />
-    </bytecodeTargetLevel>
   </component>
 </project>
