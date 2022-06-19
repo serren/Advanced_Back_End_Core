@@ -10,6 +10,7 @@
         <module name="task1" />
         <module name="task2" />
         <module name="task3" />
+        <module name="task4" />
       </profile>
       <profile name="Annotation profile for homework1" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
