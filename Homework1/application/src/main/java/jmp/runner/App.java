@@ -19,13 +19,17 @@ public class App {
     public static void main(String[] args) {
         // Points 1-17
         ServiceLoader<Service> loader = ServiceLoader.load(Service.class);
+        loader.forEach(s ->
+                System.out.printf("Found implementation %s of %s\n",
+                        s.getClass().getName(), Service.class.getName()));
+
         Optional<Service> serviceFromLoader = loader.findFirst();
         if (serviceFromLoader.isEmpty()) {
             System.out.printf("Unable to locate instance of %s%n", Service.class.getName());
             return;
         }
         Service service = serviceFromLoader.get();
-        System.out.printf("Found instance of %s%n", Service.class.getName());
+        System.out.printf("Found instance of %s\n", service.getClass().getName());
 
         ServiceLoader<Bank> bankLoader = ServiceLoader.load(Bank.class);
         Optional<Bank> bankFromLoader = bankLoader.findFirst();
@@ -80,7 +84,5 @@ public class App {
         List<Subscription> subscriptions = service.getAllSubscriptionsByCondition(isSubscriptionBeforeDate);
         System.out.printf("Subscription before %s are:%n", cutOffDate);
         System.out.println(subscriptions);
-
-
     }
 }
