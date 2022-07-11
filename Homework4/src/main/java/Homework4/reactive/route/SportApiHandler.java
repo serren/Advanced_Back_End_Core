@@ -49,6 +49,7 @@ public class SportApiHandler {
     }
 
     public Mono<ServerResponse> post(ServerRequest request) {
+        // we have to cache retrieved request body since only one subscription to request body is allowed
         final Mono<Sport> sportCached = request.bodyToMono(Sport.class).cache();
         return sportCached
                 .flatMap(s -> repository.findByName(s.getName()))
