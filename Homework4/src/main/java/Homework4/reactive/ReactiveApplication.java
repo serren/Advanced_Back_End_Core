@@ -19,16 +19,16 @@ public class ReactiveApplication {
 		SpringApplication.run(ReactiveApplication.class, args);
 	}
 
-	@Bean
-	public ConnectionFactoryInitializer initializer(@Qualifier("connectionFactory") ConnectionFactory connectionFactory) {
-		var initializer = new ConnectionFactoryInitializer();
-		initializer.setConnectionFactory(connectionFactory);
-
-		var populator = new CompositeDatabasePopulator();
-		populator.addPopulators(new ResourceDatabasePopulator(new ClassPathResource("schema.sql")));
-		// populator.addPopulators(new ResourceDatabasePopulator(new ClassPathResource("data.sql")));
-		initializer.setDatabasePopulator(populator);
-
-		return initializer;
-	}
+//	@Bean
+//	public ConnectionFactoryInitializer initializer(@Qualifier("connectionFactory") ConnectionFactory connectionFactory) {
+//		var initializer = new ConnectionFactoryInitializer();
+//		initializer.setConnectionFactory(connectionFactory);
+//
+//		var populator = new CompositeDatabasePopulator();
+//		populator.addPopulators(new ResourceDatabasePopulator(new ClassPathResource("schema.sql")));
+//		// populator.addPopulators(new ResourceDatabasePopulator(new ClassPathResource("data.sql")));
+//		initializer.setDatabasePopulator(populator);
+//
+//		return initializer;
+//	}
 }
