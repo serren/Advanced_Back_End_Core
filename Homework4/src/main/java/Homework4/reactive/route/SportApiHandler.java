@@ -49,15 +49,10 @@ public class SportApiHandler {
     }
 
     public Mono<ServerResponse> post(ServerRequest request) {
-        final Mono<Sport> sport = request.bodyToMono(Sport.class);
-        return repository
-                // Got crasy here. Couldn't make to work findByName(Mono<String> name) with mono input
-                // So checking if a sport with the same name exists does not work
-                // In the other hand I couldn't find out how extract name value
-                // from Mono<Sport> sport to use in findByName(String name) which works fine.
-                .findByName(sport.flatMap(s -> Mono.just(s.getName())))
-                .flatMap(s ->
-                        ServerResponse.badRequest().bodyValue(s.getName() + " already exist!"))
+        final Mono<Sport> sport = request.bodyToMono(Sport.class).cache();
+        return sport
+                .flatMap(s -> repository.findByName(s.getName()))
+                .flatMap(s -> ServerResponse.badRequest().bodyValue(s.getName() + " already exist!"))
                 .switchIfEmpty(
                         ServerResponse.created(UriComponentsBuilder.fromPath("sport").build().toUri())
                                 .contentType(MediaType.APPLICATION_JSON)
