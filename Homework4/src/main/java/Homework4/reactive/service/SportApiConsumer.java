@@ -26,7 +26,7 @@ public class SportApiConsumer implements SmartLifecycle {
     }
 
     @Override
-    public void stop() {}
+    public void stop() { /*No need to do something on stop */}
 
     @Override
     public boolean isRunning() {

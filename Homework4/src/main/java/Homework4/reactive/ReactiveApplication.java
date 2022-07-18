@@ -26,7 +26,6 @@ public class ReactiveApplication {
 
 		var populator = new CompositeDatabasePopulator();
 		populator.addPopulators(new ResourceDatabasePopulator(new ClassPathResource("schema.sql")));
-		// populator.addPopulators(new ResourceDatabasePopulator(new ClassPathResource("data.sql")));
 		initializer.setDatabasePopulator(populator);
 
 		return initializer;
