@@ -9,6 +9,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="task5" />
         <module name="reactive" />
+        <module name="Homework5" />
         <module name="task1" />
         <module name="task2" />
         <module name="task3" />
@@ -19,7 +20,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.24/lombok-1.18.24.jar" />
+          <entry name="$PROJECT_DIR$/../../.m2/repository/org/projectlombok/lombok/1.18.24/lombok-1.18.24.jar" />
         </processorPath>
         <module name="jmp.cloud.service.impl" />
         <module name="jmp.bank.api" />
