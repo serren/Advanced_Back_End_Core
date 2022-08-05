@@ -23,7 +23,7 @@ public class TemplateGeneratorServiceTest {
     @Test
     public void testMultiplePlaceholderReplace() {
         String template = "Hello #{value}! Hi #{value2}!";
-        String value = "#{value}=world\n#{value2}=buddy";
+        String value = "#{value}=world;#{value2}=buddy";
         Assertions.assertEquals("Hello world! Hi buddy!", service.process(template, value));
     }
 
@@ -37,14 +37,14 @@ public class TemplateGeneratorServiceTest {
     @Test
     public void testMultiplePlaceholderReplaceWithUnused() {
         String template = "Hello #{value}! Hi #{value2}!";
-        String value = "#{value}=world\n#{value2}=buddy\n#{value3}=Fred";
+        String value = "#{value}=world;#{value2}=buddy;#{value3}=Fred";
         Assertions.assertEquals("Hello world! Hi buddy!", service.process(template, value));
     }
 
     @Test
     public void testPlaceholderReplaceWithPlaceHolderValue() {
         String template = "Hello #{value}! Hi #{value2}!";
-        String value = "#{value}=world\n#{value2}=#{no_value}";
+        String value = "#{value}=world;#{value2}=#{no_value}";
         Assertions.assertEquals("Hello world! Hi #{no_value}!", service.process(template, value));
     }
 

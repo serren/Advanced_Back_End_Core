@@ -13,6 +13,7 @@ public class TemplateGeneratorServiceImpl implements TemplateGeneratorService {
 
     public static final String START_MARKER = "#{";
     public static final String END_MARKER = "}";
+    public static final String DELIMITER = ";";
 
     @Override
     public String process(String template, String value) throws IllegalArgumentException {
@@ -44,7 +45,7 @@ public class TemplateGeneratorServiceImpl implements TemplateGeneratorService {
 
     private Map<String, String> getValues(String value) {
         return Arrays.stream(StringUtils.defaultString(value)
-                .split("\n"))
+                .split(DELIMITER))
                 .map(p -> p.split("="))
                 .map(s -> {
                     String[] values = new String[2];
