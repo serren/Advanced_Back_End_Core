@@ -40,4 +40,18 @@ public class TemplateGeneratorServiceTest {
         String value = "#{value}=world\n#{value2}=buddy\n#{value3}=Fred";
         Assertions.assertEquals("Hello world! Hi buddy!", service.process(template, value));
     }
+
+    @Test
+    public void testPlaceholderReplaceWithPlaceHolderValue() {
+        String template = "Hello #{value}! Hi #{value2}!";
+        String value = "#{value}=world\n#{value2}=#{no_value}";
+        Assertions.assertEquals("Hello world! Hi #{no_value}!", service.process(template, value));
+    }
+
+    @Test
+    public void testExceptionEmptyValuesProvided() {
+        String template = "Hello #{value}! Hi #{value2}!";
+        String value = null;
+        Assertions.assertThrows(IllegalArgumentException.class, () -> service.process(template, value));
+    }
 }
