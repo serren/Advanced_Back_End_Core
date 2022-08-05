@@ -1,0 +1,12 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="MessengerApp" type="Application" factoryName="Application">
+    <option name="ALTERNATIVE_JRE_PATH" value="11" />
+    <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+    <option name="MAIN_CLASS_NAME" value="jmp.workshop.homework6.MessengerApp" />
+    <module name="Homework6" />
+    <option name="PROGRAM_PARAMETERS" value="-t &quot;Hello #{value}! Hi #{value2}!&quot; -v &quot;#{value}=world;#{value2}=buddy&quot;" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
