@@ -27,6 +27,9 @@ public class TemplateGeneratorServiceImpl implements TemplateGeneratorService {
         while (startIndex > 0 && endIndex > 0) {
             result.append(template.substring(currentPosition, startIndex));
             String placeHolder = template.substring(startIndex, endIndex + 1);
+            if (!placeHolders.containsKey(placeHolder)) {
+                throw new IllegalArgumentException("No value provided for " + placeHolder);
+            }
             String placeHolderValue = placeHolders.get(placeHolder);
             result.append(placeHolderValue);
             currentPosition = endIndex + 1;
