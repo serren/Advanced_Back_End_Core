@@ -30,7 +30,7 @@ public class TemplateGeneratorServiceImpl implements TemplateGeneratorService {
             String placeHolderValue = placeHolders.get(placeHolder);
             result.append(placeHolderValue);
             currentPosition = endIndex + 1;
-            startIndex = template.indexOf(START_MARKER, startIndex + endIndex + 1);
+            startIndex = template.indexOf(START_MARKER, startIndex + placeHolderValue.length());
             endIndex = template.indexOf(END_MARKER, startIndex);
         }
         if (currentPosition < template.length()) {
